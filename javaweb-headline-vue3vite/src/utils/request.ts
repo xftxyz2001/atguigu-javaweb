@@ -1,4 +1,5 @@
 import axios, { type AxiosResponse } from "axios";
+import { ElMessage } from 'element-plus';
 
 // 配置新建一个 axios 实例
 const service = axios.create({
@@ -20,7 +21,14 @@ service.interceptors.request.use((config) => {
 // 添加响应拦截器
 service.interceptors.response.use(
   (response) => {
-    // 对响应数据做点什么
+    // 判断响应状态码
+    if (response.data.code == 501) {
+      return ElMessage.error("用户名有误")
+    }else if (response.data.code == 503) {
+      return ElMessage.error("密码有误")
+    } else if (response.data.code == 505) {
+      return ElMessage.error("用户名占用")
+    }
     const res = response.data;
     return res.data; /* 返回成功响应数据中的data属性数据 */
   },
