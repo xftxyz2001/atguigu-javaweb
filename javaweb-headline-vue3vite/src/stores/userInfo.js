@@ -23,8 +23,9 @@ export const useUserInfoStore = defineStore('userInfo', {
        // 发送登陆的请求
       const result = await getUserInfo(loginForm)
       // 请求成功后, 取出token保存  pinia和local中
+      console.log(result.loginUser.nickName,"33333333");
       const token = result.token
-      this.nickName = result.nickName
+      this.nickName = result.loginUser.nickName
       this.token = token
       setToken(token)
     },
@@ -39,25 +40,6 @@ export const useUserInfoStore = defineStore('userInfo', {
 
     },
 
-    async reset () {
 
-      // 如果当前有用户名, 请求退出登陆接口
-        if (this.name) {
-          //退出登录
-        // await logoutApi() // 加await后, 下面的代码是在请求成功后执行的
-      }
-
-      // 删除local中保存的token
-      removeToken()
-      // 提交重置用户信息的mutation
-      this.token = ''
-      this.name = ''
-      this.avatar = ''
-
-      this.menuRoutes = [] // 清空菜单路由列表
-      this.buttons = [] // 按钮权限列表
-      // 重置注册的路由 => 只注册静态路由, 清除动态注册的路由
-      resetRoute()
-    },
 	},
 });

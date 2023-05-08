@@ -36,7 +36,7 @@
 <script lang="ts">
  import { defineComponent } from 'vue'
   export default  defineComponent({
-    name:''
+    name:'Login'
   })
 </script>
 <script lang="ts" setup>
@@ -49,11 +49,12 @@ const userInfoStore = useUserInfoStore()
 const router = useRouter()
 const formRef = ref<FormInstance>()
 const loading = ref(false)
-
+//账号密码参数
 const loginForm = ref({
       username: "zhangsan",
       userPwd: "123456",
 })
+// 校验规则
 const validateUsername = (rule: any, value: any, callback: any) => {
   if (value.length < 4) {
     callback(new Error('用户名长度不能小于4位'))
@@ -61,6 +62,7 @@ const validateUsername = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
+// 校验规则
 const validatePassword = (rule: any, value: any, callback: any) => {
   if (value.length < 6) {
     callback(new Error('密码长度不能小于6位'))
@@ -68,12 +70,12 @@ const validatePassword = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
-
+// 校验规则
 const loginRules = {
   username: [{ required: true, validator: validateUsername }],
   userPwd: [{ required: true, trigger: 'blur', validator: validatePassword }]
 }
-
+//点击登录的回调
 const login = async () => {
   // console.log('点击登录');
   await formRef.value?.validate()
@@ -81,7 +83,7 @@ const login = async () => {
   try {
     // await getUserInfo(loginForm.value)
     await userInfoStore.login(loginForm.value)
-
+    router.push({ name: "HeadlineNews" });
   } finally {
     loading.value = false
   }
