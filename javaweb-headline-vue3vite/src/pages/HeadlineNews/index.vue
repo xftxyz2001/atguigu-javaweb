@@ -21,13 +21,6 @@
   
       <!-- 分页器 -->
       <div style="margin-top: 20px">
-        <!--    
-        v-model:current-page="currentPage4"
-        v-model:page-size="pageSize4" 
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      -->
-
         <el-pagination 
           v-model:current-page="findNewsPageInfo.pageNum"
           v-model:page-size="findNewsPageInfo.pageSize" 
@@ -35,7 +28,8 @@
           @current-change="getPageList"
           :page-sizes="[3,5,7]" 
           background
-          layout="prev, pager, next , ->, sizes, total" :total="totalSize" />
+          layout="prev, pager, next , ->, sizes, total" 
+          :total="totalSize" />
       </div>
     </div>
   </div>
@@ -53,7 +47,7 @@ import { ref, onMounted, getCurrentInstance, onBeforeMount, watch } from "vue"
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 // const  {Bus}  = getCurrentInstance()?.appContext.config.globalProperties
-const { Bus } = getCurrentInstance()?.appContext.config.globalProperties
+const  { Bus } = getCurrentInstance()?.appContext.config.globalProperties
 
 const router = useRouter()
 // const currentPage = ref(1) // 当前页码
@@ -68,7 +62,7 @@ const findNewsPageInfo = ref(
     pageSize: 3,     // 页大小
   }
 )
-const totalSize = ref("")
+const totalSize = ref(0)
 const pageData = ref<[{
   hid: number,
   pageViews: null,
@@ -99,7 +93,7 @@ const getPageList = async () => {
   pageData.value = result.pageInfo.pageData
  findNewsPageInfo.value.pageNum = result.pageInfo.pageNum
  findNewsPageInfo.value.pageSize = result.pageInfo.pageSize
- totalSize.value = result.pageInfo.totalSize
+ totalSize.value = +result.pageInfo.totalSize
 }
 // 组件挂载的生命周期钩子
 onMounted(() => {
