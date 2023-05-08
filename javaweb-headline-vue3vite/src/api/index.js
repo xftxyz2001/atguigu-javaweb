@@ -38,7 +38,7 @@ export const removeByHid = (id) => {
 export const getLogin = (info) => {
   return request.post("user/login",info);
 };
-//登录的接口
+//获取用户信息的接口
 export const getUserInfo = (info) => {
   return request.get("user/getUserInfo");
 };

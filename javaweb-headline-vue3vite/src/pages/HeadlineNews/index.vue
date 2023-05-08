@@ -62,7 +62,8 @@ const findNewsPageInfo = ref(
     pageSize: 3,     // 页大小
   }
 )
-const totalSize = ref(0)
+const totalSize = ref(0) //分页总数量
+// 初始化列表数据
 const pageData = ref([{
   hid: null,
   pageViews: null,
@@ -71,8 +72,6 @@ const pageData = ref([{
   title: "",
   type: null
 }])
-
-
 
 
 //接收header组件用户搜索的数据
@@ -106,7 +105,6 @@ const toDetail = (hid) => {
 
 // 点击删除的回调
 const handlerDelete = async (id) => {
-  
   await removeByHid(id)
   ElMessage.success('删除成功!')
   //重新获取列表请求
