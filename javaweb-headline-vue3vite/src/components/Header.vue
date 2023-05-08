@@ -23,19 +23,21 @@
         <el-button size="small" style="background: #212529; color: #aea7a2" @click="toLogin">登录</el-button>
         <el-button size="small" style="background: #ffc107; color: #684802" @click="toRegister">注册</el-button>
       </div>
-
-      <!-- <el-dropdown>
-        <el-button type="primary">
-        您好:zhangshan<el-icon class="el-icon--right"><arrow-down /></el-icon>
-        </el-button>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item>发布新闻</el-dropdown-item>
-            <el-dropdown-item>个人中心</el-dropdown-item>
-            <el-dropdown-item>浏览记录</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown> -->
+      <div v-if="nickName" style="display: flex; justify-content: center; align-items: center;">
+             <el-dropdown>
+          <el-button type="primary">
+          您好:{{ nickName }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
+          </el-button>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item>发布新闻</el-dropdown-item>
+              <el-dropdown-item>个人中心</el-dropdown-item>
+              <el-dropdown-item>浏览记录</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
+      
       </div>
     </div>
   </div>
@@ -43,6 +45,7 @@
 
 <script>
 import { defineComponent } from 'vue'
+import pinia from '../stores'
 export default defineComponent({
   name: 'Header'
 })
@@ -50,9 +53,13 @@ export default defineComponent({
 
 <script setup>
 import { getfindAllTypes } from '../api/index'
-import { ref, onMounted , getCurrentInstance, onBeforeMount ,watch} from "vue"
+import { ref, onMounted , getCurrentInstance ,watch, onUpdated} from "vue"
 import { useRouter } from 'vue-router'
 import { ArrowDown } from '@element-plus/icons-vue'
+
+import { useUserInfoStore } from '../stores/userInfo'
+const userInfoStore = useUserInfoStore(pinia)
+const nickName = ref("")
 // 获取到 全局事件总线
 const { Bus } = getCurrentInstance().appContext.config.globalProperties
 const router = useRouter()
@@ -86,8 +93,11 @@ const getList = async () => {
   findAllTypeList.value = result
 }
 // 页面挂载的生命周期回调
+onUpdated(() => {
+  nickName.value = userInfoStore.nickName
+})
 onMounted(() => {
-    getList()
+  getList()
 })
 
 //点击切换高亮的回调(排他思想)

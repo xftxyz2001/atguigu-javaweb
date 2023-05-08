@@ -33,7 +33,6 @@ const detailList = ref({}) //详情数据
 //获取详情初始化数据
 const getDetailList = async () => {
   let result = await getshowHeadlineDetail(route.query.hid)
-  console.log(result.headline,"111111111");
   detailList.value = result.headline
 }
 // 页面初始化钩子

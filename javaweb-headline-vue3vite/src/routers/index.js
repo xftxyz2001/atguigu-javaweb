@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { staticRoutes } from "./routes";
 import { useUserInfoStore } from '../stores/userInfo';
 import pinia from '../stores';
-import { getToken } from '../utils/token-utils';
+import { getToken, removeToken } from '../utils/token-utils';
 import { ElMessage } from 'element-plus';
 
 
@@ -25,8 +25,13 @@ router.beforeEach(async (to, from, next) => {
     } else {
        if (userInfo) {
       next()
-    } else {
+       } else {
+         try {
+        await userInfoStore.getInfo()
        next()
+      } catch (error) {
+        removeToken()
+      }
     }
     }
   } else {

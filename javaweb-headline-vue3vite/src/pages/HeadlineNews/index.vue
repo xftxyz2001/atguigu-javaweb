@@ -35,19 +35,19 @@
   </div>
 </template>
 
-<script lang="ts">
+<script >
 import { getfindNewsPageInfo , removeByHid } from "../../api/index"
  import { defineComponent } from 'vue'
   export default  defineComponent({
     name:'HeadlineNews'
   })
 </script>
-<script lang="ts" setup>
+<script  setup>
 import { ref, onMounted, getCurrentInstance, onBeforeMount, watch } from "vue"
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 // const  {Bus}  = getCurrentInstance()?.appContext.config.globalProperties
-const  { Bus } = getCurrentInstance()?.appContext.config.globalProperties
+const  { Bus } = getCurrentInstance().appContext.config.globalProperties
 
 const router = useRouter()
 // const currentPage = ref(1) // 当前页码
@@ -63,24 +63,24 @@ const findNewsPageInfo = ref(
   }
 )
 const totalSize = ref(0)
-const pageData = ref<[{
-  hid: number,
+const pageData = ref([{
+  hid: null,
   pageViews: null,
   pastHours: null,
   publisher: null,
   title: "",
   type: null
-}]>()
+}])
 
 
 
 
 //接收header组件用户搜索的数据
-Bus.on('keyword', (keywords: string) => {
+Bus.on('keyword', (keywords) => {
   findNewsPageInfo.value.keyWords = keywords
 })
 // header点击切换高亮的时候传递过来的tid
-Bus.on('tid', (type: number) => {
+Bus.on('tid', (type) => {
   findNewsPageInfo.value.type = type
 })
 // 监视初始化参数type的变化,当type发生改变的时候重新发送请求获取列表数据
@@ -100,12 +100,12 @@ onMounted(() => {
   getPageList()
 })
 // 点击查看全文的回调
-const toDetail = (hid: any) => {
+const toDetail = (hid) => {
   router.push({ name: "Detail" ,query:{ hid }});
 }
 
 // 点击删除的回调
-const handlerDelete = async (id: any) => {
+const handlerDelete = async (id) => {
   
   await removeByHid(id)
   ElMessage.success('删除成功!')
