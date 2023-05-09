@@ -64,20 +64,17 @@
 <script lang="ts" setup>
 import { ref } from "vue"
 import { useRouter } from 'vue-router'
-
 import { ElMessage, FormInstance } from 'element-plus';
 import { registerValidateApi, registerApi } from "../../api/index"
 const router = useRouter()
-
+// 初始化注册参数
 const registerForm = ref({
   username: "",
   userPwd: "",
   confirmPassword: "",
   nickName:''
 })
-
 const formRef = ref<FormInstance>()
-
   // 校验规则
 const validateUsername = (rule: any, value: any, callback: any) => {
   if (value.length < 4) {
@@ -122,7 +119,9 @@ const registerRules = {
 const register = async () => {
   await formRef.value?.validate()
   if (registerForm.value.userPwd == registerForm.value.confirmPassword) {
-     await registerValidateApi(registerForm.value.username)
+    // 调用用户名校验接口
+    await registerValidateApi(registerForm.value.username)
+    //  整理参数
     const obj = {
       username: "",
       userPwd: "",
@@ -131,7 +130,7 @@ const register = async () => {
     obj.username = registerForm.value.username
     obj.userPwd = registerForm.value.userPwd
     obj.nickName = registerForm.value.nickName
-     registerForm.value.confirmPassword 
+    //  调用注册接口
     await registerApi(obj)
     router.push({ name: "HeadlineNews" });
 
