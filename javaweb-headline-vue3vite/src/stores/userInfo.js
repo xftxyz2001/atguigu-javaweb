@@ -29,9 +29,18 @@ export const useUserInfoStore = defineStore('userInfo', {
     },
     async getInfo () {
       const result = await getUserInfo()
-      console.log(result);
       this.nickName = result.loginUser.nickName
       this.uid = result.loginUser.uid
+    },
+    initUserInfo(){
+      removeToken()
+      this.nickName = ""
+      this.uid = ""
+      console.log('1111111111');
+      
     }
-	},
+
+  },
+  
+
 });

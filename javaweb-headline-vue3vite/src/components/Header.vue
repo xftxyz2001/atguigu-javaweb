@@ -19,10 +19,7 @@
       <!-- 用户登录以后的展示 -->
       <div class="btn-dropdown">
       <!-- 用户没有登录的时候的展示 -->
-      <div class="containerButton">
-        <el-button size="small" style="background: #212529; color: #aea7a2" @click="toLogin">登录</el-button>
-        <el-button size="small" style="background: #ffc107; color: #684802" @click="toRegister">注册</el-button>
-      </div>
+     
       <div v-if="nickName" style="display: flex; justify-content: center; align-items: center;">
              <el-dropdown>
           <el-button type="primary">
@@ -30,13 +27,18 @@
           </el-button>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item>发布新闻</el-dropdown-item>
+              <el-dropdown-item @click="handlerNews">发布新闻</el-dropdown-item>
               <el-dropdown-item>个人中心</el-dropdown-item>
               <el-dropdown-item>浏览记录</el-dropdown-item>
+              <el-dropdown-item @click="Logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
       </div>
+       <div v-else class="containerButton">
+          <el-button size="small" style="background: #212529; color: #aea7a2" @click="toLogin">登录</el-button>
+          <el-button size="small" style="background: #ffc107; color: #684802" @click="toRegister">注册</el-button>
+        </div>
       
       </div>
     </div>
@@ -45,7 +47,6 @@
 
 <script>
 import { defineComponent } from 'vue'
-import pinia from '../stores'
 export default defineComponent({
   name: 'Header'
 })
@@ -56,6 +57,9 @@ import { getfindAllTypes } from '../api/index'
 import { ref, onMounted , getCurrentInstance ,watch, onUpdated} from "vue"
 import { useRouter } from 'vue-router'
 import { ArrowDown } from '@element-plus/icons-vue'
+import { removeToken } from '../utils/token-utils' 
+import pinia from '../stores/index';
+
 
 import { useUserInfoStore } from '../stores/userInfo'
 const userInfoStore = useUserInfoStore(pinia)
@@ -110,11 +114,19 @@ const HighlightHandler = (index) => {
   Bus.emit('tid', findAllTypeList.value[index].tid)
 }
 
+// 点击退出登录的回调
+const Logout = () => {
+  removeToken()
+  userInfoStore.initUserInfo()
+  nickName.value = ""
+  router.push({ name: "HeadlineNews" });
+}
 
-// const handleClick = () => {
-//   // eslint-disable-next-line no-alert
-//   alert('button click')
-// }
+//点击发布新闻的回调
+const handlerNews = () => {
+  console.log('点击了发布新闻');
+  
+}
 </script>
 
 <style>

@@ -42,3 +42,20 @@ export const getLogin = (info) => {
 export const getUserInfo = (info) => {
   return request.get("user/getUserInfo");
 };
+
+//注册校验的接口  user/checkUserName
+export const registerValidateApi = (username) => {
+    return request({
+         method: "post",
+            url: "user/checkUserName",
+            headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+            },
+            data:`username=${username}`
+  })
+};
+
+// 注册的接口
+export const registerApi = (userInfo) => {
+  return request.post("user/regist",userInfo)
+}

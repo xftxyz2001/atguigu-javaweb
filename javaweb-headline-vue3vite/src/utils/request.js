@@ -29,11 +29,10 @@ service.interceptors.response.use(
   NProgress.done()//关闭进度条
 
     // 判断响应状态码
-    if (response.data.code == 501)  return ElMessage.error("用户名有误")
-    else if (response.data.code == 503) return ElMessage.error("密码有误")
-    else if (response.data.code == 505)   return ElMessage.error("用户名占用")
-    const res = response.data;
-    return res.data; /* 返回成功响应数据中的data属性数据 */
+    if (response.data.code == 501)  return new Promise.error(ElMessage.error("用户名有误"))
+    else if (response.data.code == 503) return new Promise.error(ElMessage.error("密码有误"))
+    else if (response.data.code == 505) return new Promise.error(ElMessage.error("用户名占用"))
+    return response.data.data; /* 返回成功响应数据中的data属性数据 */
   },
   (error) => {
   NProgress.done()//关闭进度条
