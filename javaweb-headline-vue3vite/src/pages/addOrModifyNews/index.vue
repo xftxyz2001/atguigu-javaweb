@@ -1,13 +1,13 @@
 <template>
   <el-card class="box-card AddNewsContainer">
-    <el-form size="default">
-      <el-form-item label="文章标题">
+    <el-form :rules="newsRules" :model="formData" ref="formRef" size="default">
+      <el-form-item label="文章标题" prop="title">
         <el-input v-model="formData.title" placeholder="请输入标题"></el-input>
       </el-form-item>
-      <el-form-item style="margin: 50px 0;" label="文章内容">
+      <el-form-item style="margin: 50px 0;" label="文章内容" prop="article">
         <el-input v-model="formData.article" type="textarea" rows="8"></el-input>
       </el-form-item>
-      <el-form-item label="文章内容">
+      <el-form-item label="文章内容"  prop="type">
         <el-select v-model="formData.type" placeholder="请选择文章类别">
           <el-option v-for="item in article" :label="item.name" :value="item.type">
           </el-option>
@@ -39,44 +39,35 @@ const route = useRoute()
 
 
 const formRef = ref<FormInstance>()
-  // 校验规则
-const validateUsername = (rule: any, value: any, callback: any) => {
-  if (value.length < 4) {
-    callback(new Error('用户名长度不能小于4位'))
-  } else {
+// 校验规则
+const validateType = (rule: any, value: any, callback: any) => {
+  if (value.length) {
     callback()
+  } else {
+    callback(new Error('文章标题是必须的'))
   }
 }
 // 校验规则
-const validatePassword = (rule: any, value: any, callback: any) => {
-  if (value.length < 6) {
-    callback(new Error('密码长度不能小于6位'))
-  } else {
+const validateArticle = (rule: any, value: any, callback: any) => {
+  if (value.length) {
     callback()
+  } else {
+    callback(new Error('文章内容是必须的'))
   }
 }
 // 校验规则
-const validateConfirmPassword = (rule: any, value: any, callback: any) => {
-  if (value.length < 6) {
-    callback(new Error('密码长度不能小于6位'))
-  } else {
-    callback()
-  }
-}
-// 校验规则
-const validateNickName = (rule: any, value: any, callback: any) => {
-  if (value.length >= 2  && value.length  <= 6  ) {
+const validateTitle = (rule: any, value: any, callback: any) => {
+  if (value.length) {
     callback()
   } else {
-    callback(new Error('姓名必须在2-6位'))
+    callback(new Error('文章类别是必须的'))
 }
 }
 // 校验规则
-const registerRules = {
-  nickName: [{ required: true, trigger: 'blur', validator: validateNickName }],
-  username: [{ required: true, validator: validateUsername }],
-  userPwd: [{ required: true, trigger: 'blur', validator: validatePassword }],
-  confirmPassword: [{ required: true, trigger: 'blur', validator: validateConfirmPassword }]
+const newsRules = {
+  title: [{ required: true, trigger: 'blur', validator: validateTitle }],
+  article: [{ required: true, trigger: 'blur', validator: validateArticle }],
+  type: [{ required: true, validator: validateType }],
 }
 
 
@@ -112,7 +103,7 @@ const article = [
 const clickModifyEcho = async () => {
   if (!route.query.hid)  return
     let result = await getFindHeadlineByHid(route.query.hid)
-    formData.value.title = result.headline.titlex
+    formData.value.title = result.headline.title
   formData.value.article = result.headline.article
      
     formData.value.type = result.headline.type === 1 ? "新闻" : result.headline.type === 2 ? "体育" : result.headline.type === 3 ? "娱乐" : result.headline.type === 4 ? "科技" : "其他" 
@@ -127,6 +118,9 @@ const handlerCancel = () => {
 }
 //点击保存的回调
 const handlerSave = async () => {
+  console.log(formRef.value.validate());
+  
+  await formRef.value!.validate()
     //发送请求判断用户是否token过期
   await isUserOverdue()
 const Obj = {...formData.value}
