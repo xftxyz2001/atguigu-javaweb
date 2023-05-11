@@ -21,26 +21,26 @@
   </el-card>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from 'vue'
 import { isUserOverdue } from '../../api/index'
 export default defineComponent({
   name: 'AddNews'
 })
 </script>
-<script lang="ts" setup>
+<script  setup>
 import { getFindHeadlineByHid , saveOrAddNews, issueNews } from "../../api/index"
 import { ref, onMounted } from "vue"
 import { useRoute } from 'vue-router'
 import { useRouter } from 'vue-router'
-import { ElMessage, FormInstance } from 'element-plus'
+import { ElMessage } from 'element-plus'
 const router = useRouter() 
 const route = useRoute() 
 
 
-const formRef = ref<FormInstance>()
+const formRef = ref()
 // 校验规则
-const validateType = (rule: any, value: any, callback: any) => {
+const validateType = (rule, value, callback) => {
   if (value.length) {
     callback()
   } else {
@@ -48,7 +48,7 @@ const validateType = (rule: any, value: any, callback: any) => {
   }
 }
 // 校验规则
-const validateArticle = (rule: any, value: any, callback: any) => {
+const validateArticle = (rule, value, callback) => {
   if (value.length) {
     callback()
   } else {
@@ -56,7 +56,7 @@ const validateArticle = (rule: any, value: any, callback: any) => {
   }
 }
 // 校验规则
-const validateTitle = (rule: any, value: any, callback: any) => {
+const validateTitle = (rule, value, callback) => {
   if (value.length) {
     callback()
   } else {
@@ -72,6 +72,7 @@ const newsRules = {
 
 
 const formData = ref({
+  hid:null,
   title: "",   // 文章标题
   article: "", // 文章内容
   type: ""     // 文章类别
@@ -118,9 +119,7 @@ const handlerCancel = () => {
 }
 //点击保存的回调
 const handlerSave = async () => {
-  console.log(formRef.value.validate());
-  
-  await formRef.value!.validate()
+  await formRef.value?.validate()
     //发送请求判断用户是否token过期
   await isUserOverdue()
 const Obj = {...formData.value}

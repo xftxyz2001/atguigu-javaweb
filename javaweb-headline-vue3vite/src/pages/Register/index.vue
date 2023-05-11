@@ -28,7 +28,7 @@
       </el-form-item>
       <el-form-item label="密码" prop="userPwd">
         <el-input
-          type="userPwd"
+          type="password"
           v-model="registerForm.userPwd"
           ref="userPwd"
           name="userPwd"
@@ -39,7 +39,7 @@
       <!-- prop="confirmPassword" -->
       <el-form-item label="确认密码"  prop="confirmPassword">
         <el-input
-          type="userPwd"
+          type="password"
           v-model="registerForm.confirmPassword"
           autocomplete="off"
           ref="confirmPassword"
@@ -49,7 +49,8 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="register">注册</el-button>
-        <el-button @click="resetForm">重置</el-button>
+        <el-button type="danger" @click="resetForm">重置</el-button>
+        <el-button type="success" @click="goLogin">去登录</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -132,17 +133,20 @@ const register = async () => {
     obj.nickName = registerForm.value.nickName
     //  调用注册接口
     await registerApi(obj)
-    router.push({ name: "HeadlineNews" });
-
-  } else {
+    formRef.value?.resetFields()
+    ElMessage.success("注册成功")
+    } else {
       return ElMessage.error("密码和确定密码必须一致")
     }
-  console.log('点击了注册');
+    
+}
+//点击去登录的回调
+const goLogin = () => {
+  router.push({path:"/login"})
 }
 
 //点击重置的回调
 const resetForm = () => {
-  console.log('点击了重置');
   //重置表单
   formRef.value?.resetFields()
 }

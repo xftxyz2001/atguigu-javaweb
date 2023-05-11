@@ -19,14 +19,14 @@
       </el-form-item>
       <el-form-item label="密码" prop="userPwd">
         <el-input
-          type="userPwd"
+          type="password"
           v-model="loginForm.userPwd"
           autocomplete="off"
           placeholder="请输入密码"
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click.native.prevent="login">登录</el-button>
+        <el-button type="success" @click.native.prevent="login">登录</el-button>
         <el-button type="primary" @click="toRegister">注册</el-button>
       </el-form-item>
     </el-form>

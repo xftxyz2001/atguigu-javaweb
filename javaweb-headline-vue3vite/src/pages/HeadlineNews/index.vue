@@ -14,10 +14,9 @@
         <div>
           <el-button @click="toDetail(item.hid)" size="small"
             style="background: #198754; margin-left: 15px; color: #bbd3dc">查看全文</el-button>
-
-          <el-popconfirm @confirm="handlerDelete(item.hid)" :title="`您确定要删除${item.title}吗?`">
+          <el-popconfirm v-if="item.publisher == type" @confirm="handlerDelete(item.hid)" :title="`您确定要删除${item.title}吗?`">
             <template #reference>
-              <el-button v-if="item.publisher == type"   size="small" style="background: #dc3545; color: #bbd3dc">删除</el-button>
+              <el-button    size="small" style="background: #dc3545; color: #bbd3dc">删除</el-button>
             </template>
           </el-popconfirm>
 
@@ -32,7 +31,7 @@
           v-model:page-size="findNewsPageInfo.pageSize" 
           @size-change="getPageList"
           @current-change="getPageList"
-          :page-sizes="[3,5,7]" 
+          :page-sizes="[5,7,10]" 
           background
           layout="prev, pager, next , ->, sizes, total" 
           :total="totalSize" />
@@ -54,24 +53,16 @@ import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import pinia from '../../stores/index';
 import { useUserInfoStore } from '../../stores/userInfo'
-
-// const  {Bus}  = getCurrentInstance()?.appContext.config.globalProperties
 const  { Bus } = getCurrentInstance().appContext.config.globalProperties
 const userInfoStore = useUserInfoStore(pinia)
-
-
 const router = useRouter()
-// const currentPage = ref(1) // 当前页码
-// const pageSize = ref(3) // 每页数量
-// const {Bus} = getCurrentInstance()?.appContext.config.globalProperties
 const type = userInfoStore.uid
-
 const findNewsPageInfo = ref(
   {
     keyWords: "", // 搜索标题关键字
     type: 0,           // 新闻类型
     pageNum: 1,        // 页码数
-    pageSize: 3,     // 页大小
+    pageSize: 5,     // 页大小
   }
 )
 const totalSize = ref(0) //分页总数量
