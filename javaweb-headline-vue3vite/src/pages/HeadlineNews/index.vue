@@ -14,8 +14,14 @@
         <div>
           <el-button @click="toDetail(item.hid)" size="small"
             style="background: #198754; margin-left: 15px; color: #bbd3dc">查看全文</el-button>
-          <el-button @click="handlerDelete(item.hid)" size="small" style="background: #dc3545; color: #bbd3dc">删除</el-button>
-          <el-button size="small" style="background: #212529; color: #bbd3dc">修改</el-button>
+
+          <el-popconfirm @confirm="handlerDelete(item.hid)" :title="`您确定要删除${item.title}吗?`">
+            <template #reference>
+              <el-button v-if="item.publisher == type"   size="small" style="background: #dc3545; color: #bbd3dc">删除</el-button>
+            </template>
+          </el-popconfirm>
+
+          <el-button @click="Modify(item.hid)" v-if="item.publisher == type"  size="small" style="background: #212529; color: #bbd3dc">修改</el-button>
         </div>
       </div>
   
@@ -43,16 +49,22 @@ import { getfindNewsPageInfo , removeByHid } from "../../api/index"
   })
 </script>
 <script  setup>
-import { ref, onMounted, getCurrentInstance, onBeforeMount, watch } from "vue"
+import { ref, onMounted, getCurrentInstance, watch } from "vue"
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import pinia from '../../stores/index';
+import { useUserInfoStore } from '../../stores/userInfo'
+
 // const  {Bus}  = getCurrentInstance()?.appContext.config.globalProperties
 const  { Bus } = getCurrentInstance().appContext.config.globalProperties
+const userInfoStore = useUserInfoStore(pinia)
+
 
 const router = useRouter()
 // const currentPage = ref(1) // 当前页码
 // const pageSize = ref(3) // 每页数量
 // const {Bus} = getCurrentInstance()?.appContext.config.globalProperties
+const type = userInfoStore.uid
 
 const findNewsPageInfo = ref(
   {
@@ -83,9 +95,11 @@ Bus.on('tid', (type) => {
   findNewsPageInfo.value.type = type
 })
 // 监视初始化参数type的变化,当type发生改变的时候重新发送请求获取列表数据
-watch(() => findNewsPageInfo.value.type, () => {
+watch(() => findNewsPageInfo.value, () => {
   getPageList()
-},)
+}, {
+  deep: true,
+})
 // 初始化请求分页列表数据
 const getPageList = async () => {
   let result = await getfindNewsPageInfo(findNewsPageInfo.value)
@@ -109,6 +123,10 @@ const handlerDelete = async (id) => {
   ElMessage.success('删除成功!')
   //重新获取列表请求
   getPageList()
+}
+//点击修改的回调
+const Modify = (hid) => {
+  router.push({ name: "addOrModifyNews", query: { hid } });
 }
 </script>
 

@@ -59,3 +59,31 @@ export const registerValidateApi = (username) => {
 export const registerApi = (userInfo) => {
   return request.post("user/regist",userInfo)
 }
+//判断用户登录过期的接口
+export const isUserOverdue = () => {
+  return request.get("user/checkLogin")
+}
+
+// 修改头条回显的接口
+export const getFindHeadlineByHid = (id) => {
+    return request({
+        method: "post",
+        url: "headline/findHeadlineByHid",
+        headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+         data:`hid=${id}`
+  });
+};
+
+//点击保存修改的回调
+// headline/update
+export const saveOrAddNews = (news) => {
+  return request.post("headline/update",news)
+}
+
+// headline/publish
+export const issueNews = (news) => {
+  return request.post("headline/publish",news)
+}
+

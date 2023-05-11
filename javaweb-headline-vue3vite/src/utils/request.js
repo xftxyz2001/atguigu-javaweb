@@ -28,11 +28,15 @@ service.interceptors.response.use(
   (response) => {
   NProgress.done()//关闭进度条
 
+    if(response.data.code !== 200){
     // 判断响应状态码
     if (response.data.code == 501)  return new Promise.reject(ElMessage.error("用户名有误"))
     else if (response.data.code == 503) return new Promise.reject(ElMessage.error("密码有误"))
+    else if (response.data.code == 504) return new Promise.reject(ElMessage.error("登录已过期"))
     else if (response.data.code == 505) return new Promise.reject(ElMessage.error("用户名占用"))
-    return response.data.data; /* 返回成功响应数据中的data属性数据 */
+    } else {
+      return response.data.data; /* 返回成功响应数据中的data属性数据 */
+    }
   },
   (error) => {
   NProgress.done()//关闭进度条

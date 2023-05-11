@@ -5,8 +5,8 @@
     </div>
     <div style="margin-right: 250px">
       <span>{{ detailList.typeName }}</span>
-      <span>{{ detailList.pastHours }}浏览</span>
-      <span>{{ detailList.publisher}}小时前</span>
+      <span>{{ detailList.pageViews }}浏览</span>
+      <span>{{ detailList.pastHours }}小时前</span>
     </div>
 
     <div style="width: 500px; margin: 20px 0px 0px 70px">

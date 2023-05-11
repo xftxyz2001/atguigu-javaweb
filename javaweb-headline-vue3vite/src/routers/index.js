@@ -21,7 +21,6 @@ router.beforeEach(async (to, from, next) => {
   if (token) {
     if (to.path == "/login") {
       next({ path: "/" })
-      ElMessage.success("您已经登录了,不能再登录了")
     } else {
        if (userInfo) {
       next()

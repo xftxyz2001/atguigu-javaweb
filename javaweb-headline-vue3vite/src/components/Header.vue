@@ -12,7 +12,7 @@
     <div class="right">
       <div class="rightInput" style="margin-right: 50px;">
         <el-input v-model="keywords" placeholder="搜索最新头条"></el-input>
-        <el-button   type="primary">搜索</el-button>
+        <!-- <el-button   type="primary">搜索</el-button> -->
       </div>
 
   
@@ -53,14 +53,12 @@ export default defineComponent({
 </script>
 
 <script setup>
-import { getfindAllTypes } from '../api/index'
+import { getfindAllTypes, isUserOverdue } from '../api/index'
 import { ref, onMounted , getCurrentInstance ,watch, onUpdated} from "vue"
 import { useRouter } from 'vue-router'
 import { ArrowDown } from '@element-plus/icons-vue'
 import { removeToken } from '../utils/token-utils' 
 import pinia from '../stores/index';
-
-
 import { useUserInfoStore } from '../stores/userInfo'
 const userInfoStore = useUserInfoStore(pinia)
 const nickName = ref("")
@@ -119,13 +117,14 @@ const Logout = () => {
   removeToken()
   userInfoStore.initUserInfo()
   nickName.value = ""
-  router.push({ name: "HeadlineNews" });
+  router.go({ name: "HeadlineNews" });
 }
 
 //点击发布新闻的回调
-const handlerNews = () => {
-  console.log('点击了发布新闻');
-  
+const handlerNews = async () => {
+  //发送请求判断用户是否token过期
+  await isUserOverdue()
+  router.push({ name: "addOrModifyNews" });
 }
 </script>
 

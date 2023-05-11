@@ -28,4 +28,10 @@ export const staticRoutes = [
     component: () => import("../pages/Register/index.vue"),
     name: "Register",
   },
+   {
+    //发布新闻的页面
+    path: "/addormodifynews",
+    component: () => import("../pages/addOrModifyNews/index.vue"),
+    name: "addOrModifyNews",
+  },
 ];
