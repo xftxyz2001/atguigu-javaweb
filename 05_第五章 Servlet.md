@@ -1,4 +1,5 @@
-# 第五章 Servlet
+第五章 Servlet
+---
 
 # 一 Servlet简介
 
@@ -389,17 +390,17 @@ public class ServletLifeCycle  extends HttpServlet {
 > 接口及方法说明
 
 + Servlet 规范接口,所有的Servlet必须实现 
-    + public void init(ServletConfig config) throws ServletException;   
+    + `public void init(ServletConfig config) throws ServletException;`
         + 初始化方法,容器在构造servlet对象后,自动调用的方法,容器负责实例化一个ServletConfig对象,并在调用该方法时传入
         + ServletConfig对象可以为Servlet 提供初始化参数
-    + public ServletConfig getServletConfig();
+    + `public ServletConfig getServletConfig();`
         + 获取ServletConfig对象的方法,后续可以通过该对象获取Servlet初始化参数
-    + public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException;
+    + `public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException;`
         + 处理请求并做出响应的服务方法,每次请求产生时由容器调用
         + 容器创建一个ServletRequest对象和ServletResponse对象,容器在调用service方法时,传入这两个对象
-    + public String getServletInfo();
+    + `public String getServletInfo();`
         + 获取ServletInfo信息的方法
-    + public void destroy();
+    + `public void destroy();`
         + Servlet实例在销毁之前调用的方法
 
 ## 5.2 GenericServlet 抽象类
@@ -411,32 +412,32 @@ public class ServletLifeCycle  extends HttpServlet {
 > 源码解释
 
 + GenericServlet 抽象类是对Servlet接口一些固定功能的粗糙实现,以及对service方法的再次抽象声明,并定义了一些其他相关功能方法
-    + private transient ServletConfig config; 
+    + `private transient ServletConfig config;`
         + 初始化配置对象作为属性
-    + public GenericServlet() { } 
+    + `public GenericServlet() { }`
         + 构造器,为了满足继承而准备
-    + public void destroy() { } 
+    + `public void destroy() { }`
         + 销毁方法的平庸实现
-    + public String getInitParameter(String name) 
+    + `public String getInitParameter(String name)`
         + 获取初始参数的快捷方法
-    + public Enumeration<String> getInitParameterNames() 
+    + `public Enumeration<String> getInitParameterNames()`
         + 返回所有初始化参数名的方法
-    + public ServletConfig getServletConfig()
+    + `public ServletConfig getServletConfig()`
         +  获取初始Servlet初始配置对象ServletConfig的方法
-    + public ServletContext getServletContext()
+    + `public ServletContext getServletContext()`
         +  获取上下文对象ServletContext的方法
-    + public String getServletInfo() 
+    + `public String getServletInfo()`
         + 获取Servlet信息的平庸实现
-    + public void init(ServletConfig config) throws ServletException() 
+    + `public void init(ServletConfig config) throws ServletException()`
         + 初始化方法的实现,并在此调用了init的重载方法
-    + public void init() throws ServletException 
+    + `public void init() throws ServletException`
         + 重载init方法,为了让我们自己定义初始化功能的方法
-    + public void log(String msg) 
-    + public void log(String message, Throwable t)
+    + `public void log(String msg)`
+    + `public void log(String message, Throwable t)`
         +  打印日志的方法及重载
-    + public abstract void service(ServletRequest req, ServletResponse res) throws ServletException, IOException; 
+    + `public abstract void service(ServletRequest req, ServletResponse res) throws ServletException, IOException;`
         + 服务方法再次声明
-    + public String getServletName() 
+    + `public String getServletName()`
         + 获取ServletName的方法
 
 ## 5.3 HttpServlet 抽象类
@@ -448,30 +449,30 @@ public class ServletLifeCycle  extends HttpServlet {
 > 解释
 
 + abstract class HttpServlet extends GenericServlet  HttpServlet抽象类,除了基本的实现以外,增加了更多的基础功能
-    + private static final String METHOD_DELETE = "DELETE";
-    + private static final String METHOD_HEAD = "HEAD";
-    + private static final String METHOD_GET = "GET";
-    + private static final String METHOD_OPTIONS = "OPTIONS";
-    + private static final String METHOD_POST = "POST";
-    + private static final String METHOD_PUT = "PUT";
-    + private static final String METHOD_TRACE = "TRACE";
+    + `private static final String METHOD_DELETE = "DELETE";`
+    + `private static final String METHOD_HEAD = "HEAD";`
+    + `private static final String METHOD_GET = "GET";`
+    + `private static final String METHOD_OPTIONS = "OPTIONS";`
+    + `private static final String METHOD_POST = "POST";`
+    + `private static final String METHOD_PUT = "PUT";`
+    + `private static final String METHOD_TRACE = "TRACE";`
         + 上述属性用于定义常见请求方式名常量值
-    + public HttpServlet() {}
+    + `public HttpServlet() {}`
         + 构造器,用于处理继承
-    + public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException
+    + `public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException`
         + 对服务方法的实现
         + 在该方法中,将请求和响应对象转换成对应HTTP协议的HttpServletRequest HttpServletResponse对象
         + 调用重载的service方法
-    + public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
+    + `public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException`
         + 重载的service方法,被重写的service方法所调用
         + 在该方法中,通过请求方式判断,调用具体的do***方法完成请求的处理
-    + protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-    + protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-    + protected void doHead(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-    + protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-    + protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-    + protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-    + protected void doTrace(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    + `protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException`
+    + `protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException`
+    + `protected void doHead(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException`
+    + `protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException`
+    + `protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException`
+    + `protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException`
+    + `protected void doTrace(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException`
         + 对应不同请求方式的处理方法
         + 除了doOptions和doTrace方法,其他的do*** 方法都在故意响应错误信息
 
@@ -513,7 +514,7 @@ public interface ServletConfig {
 
 | 方法名                  | 作用                                                         |
 | ----------------------- | ------------------------------------------------------------ |
-| getServletName()        | 获取\<servlet-name>HelloServlet\</servlet-name>定义的Servlet名称 |
+| getServletName()        | 获取`<servlet-name>HelloServlet</servlet-name>`定义的Servlet名称 |
 | getServletContext()     | 获取ServletContext对象                                       |
 | getInitParameter()      | 获取配置Servlet时设置的『初始化参数』，根据名字获取值        |
 | getInitParameterNames() | 获取所有初始化参数名组成的Enumeration对象                    |
@@ -734,6 +735,7 @@ String contextPath = servletContext.getContextPath();
 | String getMethod();           | 获取请求方式                   |
 
 + 获得请求头信息相关
+
 | API                                   | 功能解释               |
 | ------------------------------------- | ---------------------- |
 | String getHeader(String headerName);  | 根据头名称获取请求头   |
@@ -741,6 +743,7 @@ String contextPath = servletContext.getContextPath();
 | String getContentType();              | 获取content-type请求头 |
 
 + 获得请求参数相关
+
 | API                                                     | 功能解释                             |
 | ------------------------------------------------------- | ------------------------------------ |
 | String getParameter(String parameterName);              | 根据请求参数名获取请求单个参数值     |
@@ -752,6 +755,7 @@ String contextPath = servletContext.getContextPath();
 | int getContentLength();                                 | 获得请求体长度的字节数               |
 
 + 其他API
+
 | API                                          | 功能解释                    |
 | -------------------------------------------- | --------------------------- |
 | String getServletPath();                     | 获取请求的Servlet的映射路径 |
@@ -853,7 +857,7 @@ String contextPath = servletContext.getContextPath();
 + 服务端只产生了一对请求和响应对象,这一对请求和响应对象会继续传递给下一个资源
 + 因为全程只有一个HttpServletRequset对象,所以请求参数可以传递,请求域中的数据也可以传递
 + 请求转发可以转发给其他Servlet动态资源,也可以转发给一些静态资源以实现页面跳转
-+ 请求转发可以转发给WEB-INF下受保护的资源
++ **请求转发可以转发给WEB-INF下受保护的资源**，访问受保护资源的唯一方式
 + 请求转发不能转发到本项目以外的外部资源
 
 > 请求转发测试代码
@@ -930,7 +934,7 @@ http://localhost:8080/web03_war_exploded/servletA?username=atguigu
 + 响应重定向是服务端通过302响应码和路径,告诉客户端自己去找其他资源,是在服务端提示下的,客户端的行为
 + 客户端至少发送了两次请求,客户端地址栏是要变化的
 + 服务端产生了多对请求和响应对象,且请求和响应对象不会传递给下一个资源
-+ 因为全程产生了多个HttpServletRequset对象,所以请求参数不可以传递,请求域中的数据也不可以传递
++ 因为全程产生了多个HttpServletRequset对象,所以**请求参数不可以传递,请求域中的数据也不可以传递**
 + 重定向可以是其他Servlet动态资源,也可以是一些静态资源以实现页面跳转
 + 重定向不可以到给WEB-INF下受保护的资源
 + 重定向可以到本项目以外的外部资源
@@ -996,6 +1000,7 @@ http://localhost:8080/web03_war_exploded/servletA?username=atguigu
 
 
 # 十 web乱码和路径问题总结
+
 ##  10.1 乱码问题
 > 乱码问题产生的根本原因是什么
 
@@ -1579,7 +1584,7 @@ public class ServletB extends HttpServlet {
 
 
 
->  MVC（Model View Controller）是软件工程中的一种**`软件架构模式`**，它把软件系统分为**`模型`**、**`视图`**和**`控制器`**三个基本部分。用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。
+>  MVC（Model View Controller）是软件工程中的一种 **软件架构模式**，它把软件系统分为**模型**、**视图**和**控制器**三个基本部分。用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。
 
 + **M**：Model 模型层,具体功能如下
     1. 存放和数据库对象的实体类以及一些用于存储非数据库表完整相关的VO对象
@@ -2411,32 +2416,4 @@ public class SysUserDaoImpl extends BaseDao implements SysUserDao {
     }
 }
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

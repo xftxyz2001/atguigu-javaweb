@@ -1,4 +1,5 @@
-# 第三章 JavaScript
+第三章 JavaScript
+---
 
 # 一 JS简介
 
@@ -85,7 +86,7 @@
 > 内部脚本方式引入
 
 + 说明
-    + 在页面中,通过一对script标签引入JS代码
+    + 在页面中,通过**一对**script标签引入JS代码
     + script代码放置位置具备一定的随意性,一般放在head标签中居多
 
 + 代码
@@ -135,6 +136,7 @@
     + 内部脚本仅能在当前页面上使用,代码复用度不高
     + 可以将脚本放在独立的js文件中,通过script标签引入外部脚本文件
     + 一对script标签要么用于定义内部脚本,要么用于引入外部js文件,不能混用
+      + （不能使用单标签，也不能自闭合）
     + 一个html文档中,可以有多个script标签 
 + 抽取脚本代码到独立的js文件中
 
@@ -208,7 +210,7 @@
 
 > JS中的变量具有如下特征
 
-+ 1 弱类型变量,可以统一声明成var
++ 1 弱类型变量,可以统一声明成var （弱类型指的是变量，值还是有类型的，使用typeof查看）
 + 2 var声明的变量可以再次声明
 + 3 变量可以使用不同的数据类型多次赋值
 + 4 JS的语句可以以; 结尾,也可以不用;结尾
@@ -233,7 +235,7 @@
 
 > 关系运算符  >   <  >= <= == === !=
 
-+ 需要注意的是 == 和 === 差别
++ 需要注意的是 == 和 === 差别（相等 全等）
     + == 符号,如果两端的数据类型不一致,会尝试将两端的数据转换成number,再对比number大小
         + '123'  这种字符串可以转换成数字
         + true会被转换成1 false会被转换成0
@@ -398,6 +400,27 @@ document.write("</ul>")
 
 ![1681287540562](images/1681287540562.png)
 
+forin 与 forof
+```javascript
+const fruits = ["apple", "orange", "banana"];
+for (let index in fruits) {
+  console.log(index);
+}
+// => 0
+// => 1
+// => 2
+```
+
+```javascript
+const fruits = ["apple", "orange", "banana"];
+for (let fruit of fruits) {
+  console.log(fruit);
+}
+// => apple
+// => orange
+// => banana
+```
+
 ## 3.3 JS函数声明
 
 > JS中的方法,多称为函数,函数的声明语法和JAVA中有较大区别
@@ -408,7 +431,7 @@ document.write("</ul>")
     + 参数列表中,无需数据类型
     + 调用函数时,实参和形参的个数可以不一致
     + 声明函数时需要用function关键字
-    + J函数没有异常列表
+    + Js函数没有异常列表
 + 代码
 
 ``` javascript
@@ -808,14 +831,14 @@ console.log(typeof personStr)
 | 属性                                                         | 描述                                                         |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
 | [onblur](https://www.runoob.com/jsref/event-onblur.html)     | 元素失去焦点时触发                                           |
-| [onchange](https://www.runoob.com/jsref/event-onchange.html) | 该事件在表单元素的内容改变时触发( <input>, <keygen>, <select>, 和 <textarea>) |
+| [onchange](https://www.runoob.com/jsref/event-onchange.html) | 该事件在表单元素的内容改变时触发( `<input>`, `<keygen>`, `<select>`, 和 `<textarea>`) |
 | [onfocus](https://www.runoob.com/jsref/event-onfocus.html)   | 元素获取焦点时触发                                           |
 | [onfocusin](https://www.runoob.com/jsref/event-onfocusin.html) | 元素即将获取焦点时触发                                       |
 | [onfocusout](https://www.runoob.com/jsref/event-onfocusout.html) | 元素即将失去焦点时触发                                       |
 | [oninput](https://www.runoob.com/jsref/event-oninput.html)   | 元素获取用户输入时触发                                       |
 | [onreset](https://www.runoob.com/jsref/event-onreset.html)   | 表单重置时触发                                               |
-| [onsearch](https://www.runoob.com/jsref/event-onsearch.html) | 用户向搜索域输入文本时触发 ( <input="search">)               |
-| [onselect](https://www.runoob.com/jsref/event-onselect.html) | 用户选取文本时触发 ( <input> 和 <textarea>)                  |
+| [onsearch](https://www.runoob.com/jsref/event-onsearch.html) | 用户向搜索域输入文本时触发 ( `<input="search">`)               |
+| [onselect](https://www.runoob.com/jsref/event-onselect.html) | 用户选取文本时触发 ( `<input>` 和 `<textarea>`)                  |
 | [onsubmit](https://www.runoob.com/jsref/event-onsubmit.html) | 表单提交时触发                                               |
 
 ## 5.3 事件的绑定
@@ -2124,6 +2147,4 @@ var b = reg.test(targetStr);//true
 </body>
 </html>
 ```
-
-
 

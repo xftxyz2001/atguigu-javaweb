@@ -1,4 +1,5 @@
-# 第四章 XML_Tomcat10_HTTP
+第四章 XML Tomcat10 HTTP
+---
 
 #  一 XML
 
@@ -270,7 +271,7 @@ String value = element.attributeValue("属性名");
 
     - tomcat-users.xml：存储tomcat用户的文件，这里保存的是tomcat的用户名及密码，以及用户的角色信息。可以按着该文件中的注释信息添加tomcat用户，然后就可以在Tomcat主页中进入Tomcat Manager页面了；
 
-        ``` html
+        ``` xml
         <tomcat-users xmlns="http://tomcat.apache.org/xml"
                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                       xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
@@ -408,13 +409,11 @@ String value = element.attributeValue("属性名");
 
 <img src="images/1681458939400.png" alt="1681458939400" style="zoom:70%;" />
 
-> 选择modules,添加  framework support
-
-
+> 选择modules,添加  framework support（如果找不到使用记得全局搜索（快捷键 `ShiftShift`）（记得先选中模块））
 
 <img src="images/1681458672258.png" alt="1681458672258" style="zoom: 80%;" />
 
-> 选择Web Application 注意Version,勾选  Create web.xml
+> 选择Web Application 注意Version为5.0（如果上面没有为项目添加Tomcat10依赖的话是选不了的（新版已经是6.0了））,勾选  Create web.xml
 
 <img src="images/1681459007273.png" alt="1681459007273" style="zoom:80%;" />
 

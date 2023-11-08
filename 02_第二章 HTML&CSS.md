@@ -1,60 +1,55 @@
-# 第二章 HTML&CSS
+第二章 HTML&CSS
+---
 
 # 一 HTML入门
 
 ## 1.1 HTML&CSS&JavaScript的作用
 
 > HTML 主要用于网页主体结构的搭建
-
-![1681115424967](images/1681115424967.png)
-
-
-
-
+  ![1681115424967](images/1681115424967.png)
 
 > CSS 主要用于页面元素美化
-
-<img src="images/1681115460825.png" alt="1681115460825" style="zoom: 67%;" />
+  <img src="images/1681115460825.png" alt="1681115460825" style="zoom: 67%;" />
 
 > JavaScript 主要用于页面元素的动态处理
+  <img src="images/js.gif" alt="js" style="zoom:67%;" />
 
-<img src="images/js.gif" alt="js" style="zoom:67%;" />
 
-##  1.2 什么是HTML
+## 1.2 什么是HTML
+>  HTML是Hyper Text Markup Language的缩写。意思是超文本标记语言。它的作用是搭建网页结构，在网页上展示内容。
 
->  HTML是Hyper Text Markup Language的缩写。意思是超文本标记语言。它的作用是搭建网页结构，在网页上展示内容
+HTML5 是 **HyperText Markup Language 5 的缩写，HTML5** 技术结合了 HTML4.01 的[相关标准](https://baike.baidu.com/item/相关标准/5199682)并革新，符合现代网络发展要求，在 2008 年正式发布。HTML5 由不同的技术构成，其在互联网中得到了非常广泛的应用，提供更多增强[网络应用](https://baike.baidu.com/item/网络应用/2196523)的标准机。与传统的技术相比，HTML5 的语法特征更加明显，并且结合了 [SVG](https://baike.baidu.com/item/SVG/63178) 的内容。这些内容在网页中使用可以更加便捷地处理多媒体内容，而且 HTML5中还结合了其他元素，对原有的功能进行调整和修改，进行[标准化工作](https://baike.baidu.com/item/标准化工作/9777788)。HTML5 在 2012 年已形成了稳定的版本。2014年10月28日，W3C发布了HTML5的最终版。
 
-HTML5 是 **HyperText Markup Language 5 的缩写，HTML5** 技术结合了 HTML4.01 的[相关标准](https://baike.baidu.com/item/相关标准/5199682?fromModule=lemma_inlink "相关标准")并革新，符合现代网络发展要求，在 2008 年正式发布。HTML5 由不同的技术构成，其在互联网中得到了非常广泛的应用，提供更多增强[网络应用](https://baike.baidu.com/item/网络应用/2196523?fromModule=lemma_inlink "网络应用")的标准机。与传统的技术相比，HTML5 的语法特征更加明显，并且结合了 [SVG](https://baike.baidu.com/item/SVG/63178?fromModule=lemma_inlink "SVG") 的内容。这些内容在网页中使用可以更加便捷地处理多媒体内容，而且 HTML5中还结合了其他元素，对原有的功能进行调整和修改，进行[标准化工作](https://baike.baidu.com/item/标准化工作/9777788?fromModule=lemma_inlink "标准化工作")。HTML5 在 2012 年已形成了稳定的版本。2014年10月28日，W3C发布了HTML5的最终版。
 
 ## 1.3 什么是超文本
-
 > HTML文件本质上是文本文件，而普通的文本文件只能显示字符。但是HTML技术则通过HTML标签把其他网页、图片、音频、视频等各种多媒体资源引入到当前网页中，让网页有了非常丰富的呈现方式，这就是超文本的含义——本身是文本，但是呈现出来的最终效果超越了文本。
 
-## 1.4 什么是标记语言
 
+## 1.4 什么是标记语言
 > 说HTML是一种『标记语言』是因为它不是像Java这样的『编程语言』，因为它是由一系列『标签』组成的，没有常量、变量、流程控制、异常处理、IO等等这些功能。HTML很简单，每个标签都有它固定的含义和确定的页面显示效果。
 
--   双标签:标签是通过一组尖括号+标签名的方式来定义的：
+- 双标签:标签是通过一组尖括号+标签名的方式来定义的：
 
 ```html
 <p>HTML is a very popular fore-end technology.</p>
 ```
 
-这个例子中使用了一个p标签来定义一个段落，\<p>叫**开始标签**，\</p>叫**结束标签**。开始标签和结束标签一起构成了一个完整的标签。开始标签和结束标签之间的部分叫**文本标签体**，也简称：**标签体**。
+这个例子中使用了一个p标签来定义一个段落，`<p>`叫**开始标签**，`</p>`叫**结束标签**。开始标签和结束标签一起构成了一个完整的标签。开始标签和结束标签之间的部分叫**文本标签体**，也简称：**标签体**。
 
--   单标签
+- 单标签
 
 ```html
 <input type="text" name="username" />
 ```
 
--   属性
+- 属性
 
 ```html
 <a href="http://www.xxx.com">show detail</a>
 ```
 
 href="网址" 就是属性，href是属性名，"网址"是属性值
+
 
 ## 1.5 HTML基础结构
 
@@ -725,7 +720,7 @@ alt
     + name属性相同的radio为一组，组内互斥
     + 当用户选择了一个radio并提交表单，这个radio的name属性和value属性组成一个键值对发送给服务器
     + 设置checked="checked"属性设置默认被选中的radio
-    + 如果属性名和属性值一样的话，可以省略属性值，只写checked即可
+    + **如果属性名和属性值一样的话，可以省略属性值**，只写checked即可
 
 > 复选框
 
@@ -802,6 +797,9 @@ alt
 
 + 说明
     + 通过表单隐藏域设置的表单项不会显示到页面上，用户看不到。但是提交表单时会一起被提交。用来设置一些需要和表单一起提交但是不希望用户看到的数据，例如：用户id等等。
+    + 注（input的另外两个属性）：
+      + `<input readonly />` ：只读，可见 不可修改 会被提交
+      + `<input disabled />` ：禁用，可见 不可修改 不会被提交
 
 > 多行文本框
 
@@ -893,7 +891,7 @@ alt
 
 # 三 CSS的使用
 
-> CSS  层叠样式表(英文全称：(Cascading Style Sheets)   能够对网页中元素位置的排版进行像素级精确控制，支持几乎所有的字体字号样式，拥有对网页对象和模型样式编辑的能力 ,简单来说,美化页面
+> CSS  层叠样式表(英文全称：(Cascading Style Sheets))  能够对网页中元素位置的排版进行像素级精确控制，支持几乎所有的字体字号样式，拥有对网页对象和模型样式编辑的能力 ,简单来说,美化页面
 
 ## 3.1 CSS引入方式
 
