@@ -7,45 +7,22 @@ import com.atguigu.headline.pojo.vo.HeadlineQueryVo;
 
 import java.util.List;
 
-public interface NewsHeadlineDao {
-    /**
-     *
-     * @param headlineQueryVo
-     * @return
-     */
-    List<HeadlinePageVo> findPageList(HeadlineQueryVo headlineQueryVo);
+public interface NewsHeadLineDao {
+    List<NewsHeadline> findAll();
 
-    /**
-     *
-     * @param headlineQueryVo
-     * @return
-     */
-    int findPageCount(HeadlineQueryVo headlineQueryVo);
+    int findPageCount(HeadlineQueryVo headLineQueryVo);
 
-    /**
-     *
-     * @param hid
-     * @return
-     */
-    int incrPageViews(int hid);
+    List<HeadlinePageVo> findPageList(HeadlineQueryVo headLineQueryVo);
 
-    /**
-     *
-     * @param hid
-     * @return
-     */
-    HeadlineDetailVo findHealineDetail(int hid);
+    HeadlineDetailVo findHeadlineDetail(Integer hid);
+
+    int increasePageViews(Integer hid);
 
     int addNewsHeadline(NewsHeadline newsHeadline);
 
-    /**
-     *
-     * @param hid
-     * @return
-     */
-    NewsHeadline findByHid(Integer hid);
+    NewsHeadline findHeadlineByHid(Integer hid);
 
-    int update(NewsHeadline newsHeadline);
+    int updateNewsHeadline(NewsHeadline newsHeadline);
 
-    int removeByHid(int hid);
+    int removeByHid(Integer hid);
 }
