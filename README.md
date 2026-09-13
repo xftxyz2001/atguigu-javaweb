@@ -10,4 +10,4 @@
 - [第五章 Servlet](./05_第五章%20Servlet.md)
 - [第六章 会话_过滤器_监听器](./06_第六章%20会话_过滤器_监听器.md)
 - [第七章 前端工程化](./07_第七章%20前端工程化.md) ...[Vue](https://github.com/xftxyz2001/atguigu-vue)
-- [第八章 微头条项目开发](./08_第八章%20微头条项目开发.md) ...[前端](https://github.com/xftxyz2001/javaweb-headline-vue3vite) [后端](https://github.com/xftxyz2001/javaweb-headline-server)
+- [第八章 微头条项目开发](./08_第八章%20微头条项目开发.md) ...[前端](./javaweb-headline-vue3vite/) [后端](./javaweb-headline-server/)
